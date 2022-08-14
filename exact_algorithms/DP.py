@@ -1,21 +1,18 @@
-# you can change pass that is fit to your environment
+# you can change pass that fit to your environment
 import sys
 sys.path.append('c:\\東工大\\塩浦研\\卒論\\プログラム\\other_functions')
 sys.path.append("../")
 from generating_functions import *
 from route_drawing import *
-
+from basic_functions import *
 import itertools
+import time
 
-def t_cost(s,t): 
-  return ((s[0]-t[0])**2+(s[1]-t[1])**2)**(0.5)
-def d_cost(s,t,alpha): 
-  return (1/alpha)*(((s[0]-t[0])**2+(s[1]-t[1])**2)**(0.5))
 
 # V : coordinates of customers
 # depot : truck and drone start from depot and get back to depot
 
-def dynamic(V,depot,alpha):
+def DP_for_TSPD(V,depot,alpha):
     n=len(V)
     Dt={}
     truck={}
@@ -98,14 +95,18 @@ def dynamic(V,depot,alpha):
 
 def main():
   # you can change the size of the problems here
-  n = 9
-  # you can change the character of the problems here
-  V = mondai_donuts_center(n)
+  n = 10
+  # you can change the character of the testcases here
+  V = testcase_donuts_center(n)
   # you can change the spped rate between truck and drone here
   alpha = 2
-  total_cost,route,drone_nodes = dynamic(V,0,alpha)
-  print(f"total cost : {total_cost}")
-  drawing(V,route,0,drone_nodes)
+  start = time.time()
+  total_cost,route,drone_nodes = DP_for_TSPD(V,0,alpha)
+  end = time.time()
+  print(f"running time of DP for TSP-D : {round(end-start,4)} sec")
+  print()
+  print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
+  drawing_routes_for_DP(V,route,0,drone_nodes)
 
 if __name__ == '__main__':
   main()
