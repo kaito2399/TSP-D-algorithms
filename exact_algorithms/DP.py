@@ -107,6 +107,6 @@ def main():
   print(f"running time of DP for TSP-D : {round(end-start,4)} sec")
   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
   drawing_routes_for_DP(V,route,0,drone_nodes)
-
+  print("------------------------------------------------------------------------------------------------------------------------------------------------")
 if __name__ == '__main__':
   main()
