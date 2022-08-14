@@ -1,10 +1,11 @@
 import numpy
 import sys
-sys.path.append('c:\\東工大\\塩浦研\\卒論\\プログラム\\other_functions')
+# you can change pass that fit to your environment
+sys.path.append('c:\\users\\kaito\\github_programs\\TSP-D\\other_functions')
 sys.path.append("../")
 from generating_functions import *
 from route_drawing import *
-from basic_functions import *
+from basic_functions import t_cost,d_cost,t_pathcost
 from solving_TSP import *
 import time
 
@@ -108,6 +109,11 @@ def MST_greedy_partitioning(V,depot,alpha):
     tsp=two_approximation_for_TSP(V)
     return greedy_partitioning(V,tsp,depot,alpha)
 
+# initial route is calculated by using 2-opt algorithm for TSP
+def two_opt_greedy_partitioning(V,depot,alpha):
+    tsp = two_opt_for_TSP(V)
+    return greedy_partitioning(V,tsp,depot,alpha)
+
 # initial route is calculated by using DP for TSP.
 def DP_greedy_partitioning(V,depot,alpha):
     tsp=DP_for_TSP(V)
@@ -124,14 +130,22 @@ def main():
   start = time.time()
   total_cost,label,drone_nodes = MST_greedy_partitioning(V,0,alpha)
   end = time.time()
+  print("------------------------------------------------------------------------------------------------------------------------------------------------")
   print(f"running time of MST_greedy_partitioning : {round(end-start,4)} sec")
   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
+  start = time.time()
+  total_cost,label,drone_nodes = two_opt_greedy_partitioning(V,0,alpha)
+  end = time.time()
   print("------------------------------------------------------------------------------------------------------------------------------------------------")
+  print(f"running time of two_opt_greedy_partitioning : {round(end-start,4)} sec")
+  print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
   start = time.time()
   total_cost,label,drone_nodes = DP_greedy_partitioning(V,0,alpha)
   end = time.time()
+  print("------------------------------------------------------------------------------------------------------------------------------------------------")
   print(f"running time of DP_greedy_partitioning : {round(end-start,4)} sec")
   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
+  print("------------------------------------------------------------------------------------------------------------------------------------------------")
 #   drawing_routes(V,route,0,drone_nodes)
 
 if __name__ == '__main__':

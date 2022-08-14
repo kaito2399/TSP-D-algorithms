@@ -1,6 +1,4 @@
 import matplotlib.pyplot as plt
-from matplotlib.transforms import Bbox
-from numpy import size
 
 def drawing_routes_for_DP(V,path,depot,drone_nodes):
   n = len(V)
@@ -44,5 +42,5 @@ def drawing_routes_for_DP(V,path,depot,drone_nodes):
           plt.plot(drone_x2,drone_y2, c='blue')
   plt.show()
 
-def drawing_routes_for_heuristics(V,label,depot,drone_nodes):
+def drawing_routes_using_labels(V,label,depot,drone_nodes):
     pass

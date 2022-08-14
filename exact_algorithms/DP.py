@@ -1,10 +1,10 @@
 # you can change pass that fit to your environment
 import sys
-sys.path.append('c:\\東工大\\塩浦研\\卒論\\プログラム\\other_functions')
+sys.path.append('c:\\users\\kaito\\github_programs\\TSP-D\\other_functions')
 sys.path.append("../")
 from generating_functions import *
 from route_drawing import *
-from basic_functions import *
+from basic_functions import t_cost,d_cost
 import itertools
 import time
 
@@ -103,8 +103,8 @@ def main():
   start = time.time()
   total_cost,route,drone_nodes = DP_for_TSPD(V,0,alpha)
   end = time.time()
+  print("------------------------------------------------------------------------------------------------------------------------------------------------")
   print(f"running time of DP for TSP-D : {round(end-start,4)} sec")
-  print()
   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
   drawing_routes_for_DP(V,route,0,drone_nodes)
 

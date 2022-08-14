@@ -1,5 +1,5 @@
 import heapq
-from basic_functions import *
+from basic_functions import t_cost
 import itertools
 
 ## these algorithms return the routes
@@ -34,7 +34,7 @@ def two_approximation_for_TSP(V):
     return res
 
 # 2-opt algorithm using edge swap
-def two_opt(V):
+def two_opt_for_TSP(V):
     n = len(V)
     res = list(range(n))
     update = True
@@ -48,22 +48,22 @@ def two_opt(V):
     return res
 
 # dynamic programming
-def DP_for_TSP(ps):
+def DP_for_TSP(V):
     length = {} # length[(u,S)]: u を始点とし S の点すべてを回る最小経路長、ディクショナリ
     route = {} # route[(u,S)]: 最小経路長を達成するためのルート、ディクショナリ
-    v = ps[0]
-    n = len(ps)
+    v = V[0]
+    n = len(V)
     for i in range(1,n+1):
         for a in itertools.combinations(range(n),i):
             S = frozenset(a)
             for j in S:
-                u = ps[j]
+                u = V[j]
                 if i==1:
                     length[(j,S)] = t_cost(v,u)
                     route[(j,S)] = [j]
                 else:
                     Sj = S-set([j]) # S から j を除いたもの
-                    k=min(Sj,key=lambda k: length[(k,Sj)]+t_cost(ps[k],u))#Sjの中でlength[(k,Sj)]+dist(ps[k],u)が最小のものを返している
-                    length[(j,S)] = length[(k,Sj)]+t_cost(ps[k],u)
+                    k=min(Sj,key=lambda k: length[(k,Sj)]+t_cost(V[k],u))#Sjの中でlength[(k,Sj)]+dist(V[k],u)が最小のものを返している
+                    length[(j,S)] = length[(k,Sj)]+t_cost(V[k],u)
                     route[(j,S)] = route[(k,Sj)]+[j]
     return route[(0,frozenset(range(n)))] 
