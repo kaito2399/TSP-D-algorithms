@@ -95,9 +95,9 @@ def DP_for_TSPD(V,depot,alpha):
 
 def main():
   # you can change the size of the problems here
-  n = 10
+  n = 8
   # you can change the character of the testcases here
-  V = testcase_donuts_center(n)
+  V = testcase_uniform(n)
   # you can change the spped rate between truck and drone here
   alpha = 2
   start = time.time()

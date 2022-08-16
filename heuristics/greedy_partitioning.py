@@ -151,7 +151,7 @@ def DP_greedy_partitioning_all_improved(V,depot,alpha):
 
 def main():
   # you can change the size of the problems here
-  n = 20
+  n = 15
   # you can change the character of the testcases here
   V = testcase_donuts_center(n)
   # you can change the spped rate between truck and drone here
@@ -159,11 +159,12 @@ def main():
 
   print("------------------------------------------------------------------------------------------------------------------------------------------------")
   start = time.time()
-  total_cost,path,drone_nodes = two_opt_greedy_partitioning(V,0,alpha)
+  total_cost,label,drone_nodes = two_opt_greedy_partitioning(V,0,alpha)
   end = time.time()
   print(f"running time of two_opt_greedy_partitioning : {round(end-start,4)} sec")
   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
-  
+  drawing_routes_using_labels(V,label,0,drone_nodes)
+
 #   print("------------------------------------------------------------------------------------------------------------------------------------------------")
 #   start = time.time()
 #   total_cost,path,drone_nodes = DP_greedy_partitioning(V,0,alpha)
@@ -173,10 +174,11 @@ def main():
   
   print("------------------------------------------------------------------------------------------------------------------------------------------------")
   start = time.time()
-  total_cost,path,drone_nodes = two_opt_greedy_partitioning_all_improved(V,0,alpha)
+  total_cost,label,drone_nodes = two_opt_greedy_partitioning_all_improved(V,0,alpha)
   end = time.time()
   print(f"running time of two_opt_greedy_partitioning_all_improved : {round(end-start,4)} sec")
   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
+  drawing_routes_using_labels(V,label,0,drone_nodes)
   
 #   print("------------------------------------------------------------------------------------------------------------------------------------------------")
 #   start = time.time()

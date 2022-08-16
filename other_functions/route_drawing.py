@@ -43,4 +43,48 @@ def drawing_routes_for_DP(V,path,depot,drone_nodes):
   plt.show()
 
 def drawing_routes_using_labels(V,label,depot,drone_nodes):
-    pass
+    tsp_route = [i for i in label.keys()]
+    n = len(V)
+    text_dict = dict(boxstyle = "round",fc = "silver", ec = "mediumblue")
+    for i in range(n):
+        plt.scatter(V[depot][0],V[depot][1],c='k')
+        plt.annotate("DEPOT",size = 6, xy = (V[depot][0],V[depot][1]), bbox = text_dict)
+        plt.scatter(V[i][0],V[i][1],c='k')
+        if i in drone_nodes:
+          plt.annotate(f"d{i}",size = 6, xy = (V[i][0],V[i][1]),bbox = text_dict)
+        elif i != 0:
+          plt.annotate(f"t{i}",size = 6, xy = (V[i][0],V[i][1]),bbox = text_dict)
+    for i in range(n):
+      if label[tsp_route[i]] == "combined":
+        if label[tsp_route[(i+1)%n]] == "combined":
+          truck_x = (V[tsp_route[i]][0],V[tsp_route[(i+1)%n]][0])
+          truck_y = (V[tsp_route[i]][1],V[tsp_route[(i+1)%n]][1])
+          plt.plot(truck_x,truck_y,c="red")
+        else:
+          cnt = 1
+          while label[tsp_route[(i+cnt)%n]] != "drone":
+            cnt += 1
+          drone_x = (V[tsp_route[i]][0],V[tsp_route[(i+cnt)%n]][0])
+          drone_y = (V[tsp_route[i]][1],V[tsp_route[(i+cnt)%n]][1])
+          plt.plot(drone_x,drone_y,c="blue")
+          cnt = 1
+          while label[tsp_route[(i+cnt)%n]] == "drone":
+            cnt += 1
+          truck_x = (V[tsp_route[i]][0],V[tsp_route[(i+cnt)%n]][0])
+          truck_y = (V[tsp_route[i]][1],V[tsp_route[(i+cnt)%n]][1])
+          plt.plot(truck_x,truck_y,c="red")
+      elif label[tsp_route[i]] == "drone":
+        cnt = 1
+        while label[tsp_route[(i+cnt)%n]] != "combined":
+          cnt += 1
+        drone_x = (V[tsp_route[i]][0],V[tsp_route[(i+cnt)%n]][0])
+        drone_y = (V[tsp_route[i]][1],V[tsp_route[(i+cnt)%n]][1])
+        plt.plot(drone_x,drone_y,c="blue")
+      else:
+        cnt = 1
+        while label[tsp_route[(i+cnt)%n]] == "drone":
+          cnt += 1
+        truck_x = (V[tsp_route[i]][0],V[tsp_route[(i+cnt)%n]][0])
+        truck_y = (V[tsp_route[i]][1],V[tsp_route[(i+cnt)%n]][1])
+        plt.plot(truck_x,truck_y,c="red")  
+    plt.show()

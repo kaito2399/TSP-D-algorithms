@@ -80,13 +80,19 @@ def exact_partitioning(V,tsp,depot,alpha):
         else:
             path=path+[[]]
     
-    
+    label={i:"truck" for i in tsp}
+    for i in path:
+        if type(i) == int:
+            label[i] = "combined"
+        else:
+            if len(i) > 0:
+                label[i[0]] = "drone"
+
     dset=set()
     for i in range(len(path)):
         if type(path[i])==list and len(path[i])==1:
             dset.add(path[i][0])
-
-    return Dres,path,dset
+    return Dres,label,dset
 
 # initial route is calculated by using mst 2-approximation algorithm for TSP.    
 def MST_exact_partitioning(V,depot,alpha):
@@ -135,19 +141,19 @@ def DP_exact_partitioning_all_improved(V,depot,alpha):
 
 def main():
   # you can change the size of the problems here
-  n = 10
+  n = 8
   # you can change the character of the testcases here
-  V = testcase_donuts_center(n)
+  V = testcase_uniform(n)
   # you can change the spped rate between truck and drone here
   alpha = 2
   
   print("------------------------------------------------------------------------------------------------------------------------------------------------")
   start = time.time()
-  total_cost,path,drone_nodes = two_opt_exact_partitioning(V,0,alpha)
+  total_cost,label,drone_nodes = two_opt_exact_partitioning(V,0,alpha)
   end = time.time()
   print(f"running time of two_opt_exact_partitioning : {round(end-start,4)} sec")
   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
-  
+  drawing_routes_using_labels(V,label,0,drone_nodes)
 #   print("------------------------------------------------------------------------------------------------------------------------------------------------")
 #   start = time.time()
 #   total_cost,path,drone_nodes = DP_exact_partitioning(V,0,alpha)
@@ -161,7 +167,8 @@ def main():
   end = time.time()
   print(f"running time of two_opt_exact_partitioning_all_improved : {round(end-start,4)} sec")
   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
-  
+  drawing_routes_using_labels(V,label,0,drone_nodes)
+
 #   print("------------------------------------------------------------------------------------------------------------------------------------------------")
 #   start = time.time()
 #   total_cost,path,drone_nodes = DP_exact_partitioning_all_improved(V,0,alpha)
