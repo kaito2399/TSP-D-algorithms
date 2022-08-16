@@ -7,6 +7,7 @@ from generating_functions import *
 from route_drawing import *
 from basic_functions import t_cost,d_cost,t_pathcost
 from solving_TSP import *
+from iterative_improvement_procedure import *
 import time
 import itertools
 
@@ -100,7 +101,36 @@ def two_opt_exact_partitioning(V,depot,alpha):
 # initial route is calculated by using DP for TSP.
 def DP_exact_partitioning(V,depot,alpha):
     tsp=DP_for_TSP(V)
-    print(tsp)
+    return exact_partitioning(V,tsp,depot,alpha)
+
+
+## using iterative improvement procedure
+def improve_twopmove_exact(alg,V,depot,alpha):
+    tsp=improve(two_points_move,exact_partitioning,alg(V),depot,V,alpha)
+    return exact_partitioning(V,tsp,depot,alpha)
+
+def improve_twooptmove_exact(alg,V,depot,alpha):
+    tsp=improve(two_opt_move,exact_partitioning,alg(V),depot,V,alpha)
+    return exact_partitioning(V,tsp,depot,alpha)
+
+def improve_onepmove_exact(alg,V,depot,alpha):
+    tsp=improve(one_point_move,exact_partitioning,alg(V),depot,V,alpha)
+    return exact_partitioning(V,tsp,depot,alpha)
+
+def improve_all_exact(alg,V,depot,alpha):
+    tsp=improve_all(exact_partitioning,alg(V),depot,V,alpha)
+    return exact_partitioning(V,tsp,depot,alpha)
+
+def MST_exact_partitioning_all_improved(V,depot,alpha):
+    tsp=improve_all(exact_partitioning,two_approximation_for_TSP(V),depot,V,alpha)
+    return exact_partitioning(V,tsp,depot,alpha)
+
+def two_opt_exact_partitioning_all_improved(V,depot,alpha):
+    tsp = improve_all(exact_partitioning,two_opt_for_TSP(V),depot,V,alpha)
+    return exact_partitioning(V,tsp,depot,alpha)
+
+def DP_exact_partitioning_all_improved(V,depot,alpha):
+    tsp=improve_all(exact_partitioning,DP_for_TSP(V),depot,V,alpha)
     return exact_partitioning(V,tsp,depot,alpha)
 
 def main():
@@ -110,26 +140,35 @@ def main():
   V = testcase_donuts_center(n)
   # you can change the spped rate between truck and drone here
   alpha = 2
-  start = time.time()
-  total_cost,path,drone_nodes = MST_exact_partitioning(V,0,alpha)
-  end = time.time()
+  
   print("------------------------------------------------------------------------------------------------------------------------------------------------")
-  print(f"running time of MST_exact_partitioning : {round(end-start,4)} sec")
-  print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
   start = time.time()
   total_cost,path,drone_nodes = two_opt_exact_partitioning(V,0,alpha)
   end = time.time()
-  print("------------------------------------------------------------------------------------------------------------------------------------------------")
   print(f"running time of two_opt_exact_partitioning : {round(end-start,4)} sec")
   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
-  start = time.time()
-  total_cost,path,drone_nodes = DP_exact_partitioning(V,0,alpha)
-  end = time.time()
+  
+#   print("------------------------------------------------------------------------------------------------------------------------------------------------")
+#   start = time.time()
+#   total_cost,path,drone_nodes = DP_exact_partitioning(V,0,alpha)
+#   end = time.time()
+#   print(f"running time of DP_exact_partitioning : {round(end-start,4)} sec")
+#   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
+  
   print("------------------------------------------------------------------------------------------------------------------------------------------------")
-  print(f"running time of DP_exact_partitioning : {round(end-start,4)} sec")
+  start = time.time()
+  total_cost,path,drone_nodes = two_opt_exact_partitioning_all_improved(V,0,alpha)
+  end = time.time()
+  print(f"running time of two_opt_exact_partitioning_all_improved : {round(end-start,4)} sec")
   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
-  print(drone_nodes)
-  print(path)
+  
+#   print("------------------------------------------------------------------------------------------------------------------------------------------------")
+#   start = time.time()
+#   total_cost,path,drone_nodes = DP_exact_partitioning_all_improved(V,0,alpha)
+#   end = time.time()
+#   print(f"running time of DP_exact_partitioning_all_improved : {round(end-start,4)} sec")
+#   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
+  
   print("------------------------------------------------------------------------------------------------------------------------------------------------")
 
 if __name__ == '__main__':
