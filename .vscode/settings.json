@@ -1,0 +1,8 @@
+{
+  "python.analysis.extraPaths": [
+    "c:\\東工大\\塩浦研\\修論\\計算実験\\spanning_tree_scheduling\\Pareto_algorithms",
+    "c:\\東工大\\塩浦研\\修論\\計算実験\\spanning_tree_scheduling\\PTAS",
+    "c:\\東工大\\塩浦研\\修論\\計算実験\\spanning_tree_scheduling",
+    "c:\\users\\kaito\\github_programs\\TSP-D\\other_functions"
+  ]
+}

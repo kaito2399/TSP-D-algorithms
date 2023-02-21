@@ -33,7 +33,7 @@ def DP_for_TSPD(V,depot,alpha):
                             if z<Dt[(S,v,w)]:
                                 Dt[(S,v,w)]=z
                                 truck[(S,v,w)]=p
-                                                         
+
     Dop={}
     operation={}
     for i in range(1,n+1):
@@ -54,8 +54,8 @@ def DP_for_TSPD(V,depot,alpha):
                             z=max(drone_cost,Dt[(Sd,v,w)])
                             if z<Dop[(S,v,w)]:
                                 Dop[(S,v,w)]=z
-                                operation[(S,v,w)]=truck[(Sd,v,w)]+[[d]]    
-                         
+                                operation[(S,v,w)]=truck[(Sd,v,w)]+[[d]]
+
     D={}
     route={}
     for i in range(1,n+1):
@@ -80,33 +80,35 @@ def DP_for_TSPD(V,depot,alpha):
                             if z<D[(frozenset(U|Tset|{u,w}),w)]:
                                 D[(frozenset(U|Tset|{u,w}),w)]=z
                                 route[(frozenset(U|Tset|{u,w}),w)]=p
-                                
-                                
+
+
     path=route[(frozenset(range(n)),depot)]
     dset=set()
     for i in range(len(path)):
         if type(path[i][-1])==list:
-            dset.add(path[i][-1][0])  
-            
+            dset.add(path[i][-1][0])
+
     # D[(frozenset(range(n)),depot)] : total cost
     # path : path that truck and drone deliver
     # dset : set of drone nodes
     return D[(frozenset(range(n)),depot)],path,dset
 
 def main():
-  # you can change the size of the problems here
-  n = 8
-  # you can change the character of the testcases here
-  V = testcase_uniform(n)
-  # you can change the spped rate between truck and drone here
-  alpha = 2
-  start = time.time()
-  total_cost,route,drone_nodes = DP_for_TSPD(V,0,alpha)
-  end = time.time()
-  print("------------------------------------------------------------------------------------------------------------------------------------------------")
-  print(f"running time of DP for TSP-D : {round(end-start,4)} sec")
-  print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
-  drawing_routes_for_DP(V,route,0,drone_nodes)
-  print("------------------------------------------------------------------------------------------------------------------------------------------------")
+    # you can change the size of the problems here
+    n = 8
+    # you can change the character of the testcases here
+    V = testcase_uniform(n)
+    # V = testcase_donuts(n)
+    # you can change the speed rate (alpha) between truck and drone here
+    alpha = 2
+    start = time.time()
+    total_cost,route,drone_nodes = DP_for_TSPD(V,0,alpha)
+    end = time.time()
+    print("------------------------------------------------------------------------------------------------------------------------------------------------")
+    print(f"running time of DP for TSP-D : {round(end-start,4)} sec")
+    print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
+    print(route)
+    drawing_routes_for_DP(V,route,0,drone_nodes)
+    print("------------------------------------------------------------------------------------------------------------------------------------------------")
 if __name__ == '__main__':
-  main()
+    main()

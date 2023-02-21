@@ -8,7 +8,7 @@ def two_points_move(lis,i,j):
       new_list=lis[:j]+[lis[i]]+lis[(j+1):i]+[lis[j]]+lis[(i+1):]
     return new_list
 
-#2辺を入れ替える         
+#2辺を入れ替える
 def two_opt_move(lis,i,j):
     if i<j:
       new_list=lis[:i+1]+lis[j:(i+1)%len(lis)-1:-1]+lis[(j+1):]
@@ -43,7 +43,7 @@ def improve(move,heuristic,lis,depot,V,alpha):
     return initial
 
 # improving procedure using all of the moves
-def improve_all(heuristic,lis,depot,V,alpha):                                
+def improve_all(heuristic,lis,depot,V,alpha):
     n=len(lis)
     initial=lis
     f=heuristic(V,initial,depot,alpha)[0]
@@ -60,5 +60,4 @@ def improve_all(heuristic,lis,depot,V,alpha):
         if update:
             lis=initial
     return initial
-    
-    
+

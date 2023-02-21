@@ -40,7 +40,7 @@ def greedy_partitioning(V,tsp,depot,alpha):#depotはindex指定ではない
                             pls=t_cost(V[tsp[i-1]],V[tsp[i]])+operation[(tsp[dronenode],tsp[j-1],tsp[i-1])]-max(d_cost(V[tsp[j-1]],V[tsp[dronenode]],alpha)+d_cost(V[tsp[dronenode]],V[tsp[i]],alpha),driveop[(tsp[dronenode],tsp[j-1],tsp[i-1])]+t_cost(V[tsp[i-1]],V[tsp[i]]))
                             ms.append(pls)
                             break
-                        j=j-1  
+                        j=j-1
                 else: ms.append(-float('inf'))
             else: ms.append(-float('inf'))
         for i in range(n):
@@ -171,7 +171,7 @@ def main():
 #   end = time.time()
 #   print(f"running time of DP_greedy_partitioning : {round(end-start,4)} sec")
 #   print(f"total cost (time) to deliver all of the customers : {round(total_cost,4)}")
-  
+
   print("------------------------------------------------------------------------------------------------------------------------------------------------")
   start = time.time()
   total_cost,label,drone_nodes = two_opt_greedy_partitioning_all_improved(V,0,alpha)
