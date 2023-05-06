@@ -44,7 +44,7 @@ def two_opt_for_TSP(V):
             if ((t_cost(V[res[i]],V[res[i+1]])+t_cost(V[res[j]],V[res[(j+1)%n]]))>
                 (t_cost(V[res[i]],V[res[j]])+t_cost(V[res[i+1]],V[res[(j+1)%n]]))):
                 res[i+1:j+1] = res[j:i:-1]
-                update = True   
+                update = True
     return res
 
 # dynamic programming
@@ -66,4 +66,4 @@ def DP_for_TSP(V):
                     k=min(Sj,key=lambda k: length[(k,Sj)]+t_cost(V[k],u))#Sjの中でlength[(k,Sj)]+dist(V[k],u)が最小のものを返している
                     length[(j,S)] = length[(k,Sj)]+t_cost(V[k],u)
                     route[(j,S)] = route[(k,Sj)]+[j]
-    return route[(0,frozenset(range(n)))] 
+    return route[(0,frozenset(range(n)))]

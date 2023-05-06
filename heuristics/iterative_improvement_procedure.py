@@ -1,6 +1,7 @@
 import itertools
 
-#iとjの順番を入れ替える
+# iとjの順番を入れ替える
+# swap index i and j
 def two_points_move(lis,i,j):
     if i<j:
       new_list=lis[:i]+[lis[j]]+lis[(i+1):j]+[lis[i]]+lis[(j+1):]
@@ -8,7 +9,8 @@ def two_points_move(lis,i,j):
       new_list=lis[:j]+[lis[i]]+lis[(j+1):i]+[lis[j]]+lis[(i+1):]
     return new_list
 
-#2辺を入れ替える
+# 2辺を入れ替える
+# swap two edges
 def two_opt_move(lis,i,j):
     if i<j:
       new_list=lis[:i+1]+lis[j:(i+1)%len(lis)-1:-1]+lis[(j+1):]
@@ -16,7 +18,8 @@ def two_opt_move(lis,i,j):
       new_list=[lis[i]]+lis[j::-1]+lis[:(i+1)%len(lis)-1:-1]+lis[j+1:i]
     return new_list
 
-#iをj番目に挿入する
+# iをj番目に挿入する
+# insert i to j
 def one_point_move(lis,i,j):
     if i<j:
       new_list=lis[:i]+lis[(i+1):(j+1)]+[lis[i]]+lis[(j+1):]
@@ -24,7 +27,7 @@ def one_point_move(lis,i,j):
       new_list=lis[:j]+[lis[i]]+lis[j:i]+lis[(i+1):]
     return new_list
 
-# improving procedure using one of the moves    
+# improving procedure using one of the moves
 def improve(move,heuristic,lis,depot,V,alpha):
     n=len(lis)
     initial=lis

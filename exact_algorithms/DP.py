@@ -97,7 +97,7 @@ def main():
     # you can change the size of the problems here
     n = 8
     # you can change the character of the testcases here
-    V = testcase_uniform(n)
+    V = testcase_center(n)
     # V = testcase_donuts(n)
     # you can change the speed rate (alpha) between truck and drone here
     alpha = 2

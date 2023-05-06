@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+# red for truck, blue for drone
 def drawing_routes_for_DP(V,path,depot,drone_nodes):
   n = len(V)
   text_dict = dict(boxstyle = "round",fc = "silver", ec = "mediumblue")
